@@ -73,4 +73,4 @@ Similarly, the attribute is set to `Client` in client projects.
 * <xref:grpc/index>
 * <xref:tutorials/grpc/grpc-start>
 * <xref:grpc/aspnetcore>
-* <xref:grpc/migration>
+* <xref:grpc/client>
