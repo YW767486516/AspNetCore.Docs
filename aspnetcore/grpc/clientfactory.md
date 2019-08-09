@@ -40,7 +40,8 @@ public class AggregatorService : Aggregator.AggregatorBase
         _client = client;
     }
 
-    public override async Task SayHellos(HelloRequest request, IServerStreamWriter<HelloReply> responseStream, ServerCallContext context)
+    public override async Task SayHellos(
+        HelloRequest request, IServerStreamWriter<HelloReply> responseStream, ServerCallContext context)
     {
         // Forward the call on to the greeter service
         using (var call = _client.SayHellos(request))
@@ -56,7 +57,7 @@ public class AggregatorService : Aggregator.AggregatorBase
 
 ## Configure HttpClient
 
-HttpClientFactory creates the HttpClient used by the gRPC client. Standard HttpClientFactory methods can be used to add outgoing request middleware or configure the underlying HttpClientHandler of the HttpClient:
+HttpClientFactory creates the `HttpClient` used by the gRPC client. Standard HttpClientFactory methods can be used to add outgoing request middleware or configure the underlying `HttpClientHandler` of the `HttpClient`:
 
 ```csharp
 services

@@ -105,7 +105,6 @@ using (var call = client.AccumulateCount())
     Console.WriteLine($"Count: {response.Count}");
     // Count: 3
 }
-
 ```
 
 ### Bi-directional streaming call
@@ -142,7 +141,6 @@ using (var call = client.Echo())
     await call.RequestStream.CompleteAsync();
     await readTask;
 }
-
 ```
 
 During a bi-directional streaming call the client and service can send messages to each other at any time. The best client logic for interacting with a bi-directional call varies depending on the service logic.
