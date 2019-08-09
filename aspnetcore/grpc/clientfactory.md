@@ -40,8 +40,8 @@ public class AggregatorService : Aggregator.AggregatorBase
         _client = client;
     }
 
-    public override async Task SayHellos(
-        HelloRequest request, IServerStreamWriter<HelloReply> responseStream, ServerCallContext context)
+    public override async Task SayHellos(HelloRequest request,
+        IServerStreamWriter<HelloReply> responseStream, ServerCallContext context)
     {
         // Forward the call on to the greeter service
         using (var call = _client.SayHellos(request))
