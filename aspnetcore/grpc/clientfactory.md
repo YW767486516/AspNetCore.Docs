@@ -9,13 +9,13 @@ uid: grpc/clientfactory
 ---
 # gRPC client factory integration in .NET Core
 
-gRPC integration with HttpClientFactory offers a centralized way to create gRPC clients. It can be used as an alternative to [configuring stand-alone gRPC client instances](xref:grpc/client). Factory integration is available in the [Grpc.Net.ClientFactory](https://www.nuget.org/packages/Grpc.Net.ClientFactory) NuGet package.
+gRPC integration with `HttpClientFactory` offers a centralized way to create gRPC clients. It can be used as an alternative to [configuring stand-alone gRPC client instances](xref:grpc/client). Factory integration is available in the [Grpc.Net.ClientFactory](https://www.nuget.org/packages/Grpc.Net.ClientFactory) NuGet package.
 
 The factory offers the following benefits:
 
 * Provides a central location for configuring logical gRPC client instances
 * Manages the lifetime of the underlying `HttpClientMessageHandler`
-* Automatic propagation of deadline and cancellation in a ASP.NET Core gRPC service
+* Automatic propagation of deadline and cancellation in an ASP.NET Core gRPC service
 
 ## Register gRPC clients
 
@@ -28,7 +28,7 @@ services.AddGrpcClient<Greeter.GreeterClient>(o =>
 });
 ```
 
-The gRPC client type is registered as transient with DI. The client can now be injected and consumed directly in types create by DI. ASP.NET Core MVC controllers, SignalR hubs and gRPC services are all places where gRPC clients can automatically be injected:
+The gRPC client type is registered as transient with dependency injection (DI). The client can now be injected and consumed directly in types created by DI. ASP.NET Core MVC controllers, SignalR hubs and gRPC services are places where gRPC clients can automatically be injected:
 
 ```csharp
 public class AggregatorService : Aggregator.AggregatorBase
@@ -57,7 +57,7 @@ public class AggregatorService : Aggregator.AggregatorBase
 
 ## Configure HttpClient
 
-HttpClientFactory creates the `HttpClient` used by the gRPC client. Standard HttpClientFactory methods can be used to add outgoing request middleware or configure the underlying `HttpClientHandler` of the `HttpClient`:
+`HttpClientFactory` creates the `HttpClient` used by the gRPC client. Standard `HttpClientFactory` methods can be used to add outgoing request middleware or to configure the underlying `HttpClientHandler` of the `HttpClient`:
 
 ```csharp
 services
@@ -73,11 +73,14 @@ services
     });
 ```
 
-For more information, see [Make HTTP requests using IHttpClientFactory](fundamentals/http-requests).
+For more information, see [Make HTTP requests using IHttpClientFactory](xref:fundamentals/http-requests).
 
 ## Configure Channel and Interceptors
 
-gRPC specific methods are available to configure gRPC client's underlying channel, or add `Interceptor` instances that the client should use when making gRPC calls.
+gRPC-specific methods are available to:
+
+* Configure a gRPC client's underlying channel.
+* Add `Interceptor` instances that the client will use when making gRPC calls.
 
 ```csharp
 services
@@ -96,7 +99,7 @@ services
 
 gRPC clients created by the factory in a gRPC service can be configured with `EnableCallContextPropagation()` to automatically propagate the deadline and cancellation token to child calls.
 
-Call context propagation works by reading those details from the current gRPC request context and automatically propagating them to outgoing calls made by the gRPC client. Call context propagation is an excellent way of ensuring complex, nested gRPC scenarios always propagate the deadline and cancellation.
+Call context propagation works by reading those details from the current gRPC request context and automatically propagating them to outgoing calls made by the gRPC client. Call context propagation is an excellent way of ensuring that complex, nested gRPC scenarios always propagate the deadline and cancellation.
 
 ```csharp
 services

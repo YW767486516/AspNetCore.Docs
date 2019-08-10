@@ -43,7 +43,10 @@ The following table describes options for configuring gRPC channels:
 | `Credentials` | `null` | A `ChannelCredentials` instance. Credentials are used to add authentication metadata to gRPC calls. |
 | `CompressionProviders` | gzip, deflate | A collection of compression providers used to compress and decompress messages. Custom compression providers can be created and added to the collection. The default configured providers support **gzip** and **deflate** compression. |
 
-The following code sets the maximum send and receive message size on the channel, and creates a client:
+The following code:
+
+* Sets the maximum send and receive message size on the channel.
+* Creates a client.
 
 [!code-csharp[](~/grpc/configuration/sample/Program.cs?name=snippet&highlight=5-10)]
 

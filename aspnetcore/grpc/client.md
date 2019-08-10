@@ -1,5 +1,5 @@
 ---
-title: Calling gRPC services with .NET client
+title: Call gRPC services with the .NET client
 author: jamesnk
 description: Learn how to call gRPC services with the .NET gRPC client.
 monikerRange: '>= aspnetcore-3.0'
@@ -7,16 +7,16 @@ ms.author: jamesnk
 ms.date: 08/06/2019
 uid: grpc/client
 ---
-# Calling gRPC services with .NET client
+# Call gRPC services with the .NET client
 
 A .NET gRPC client library is available in the [Grpc.Net.Client](https://www.nuget.org/packages/Grpc.Net.Client) NuGet package. This document explains how to:
 
-* Configure gRPC client to call gRPC services
-* Make gRPC calls to unary, server streaming, client streaming and bi-direction streaming methods
+* Configure a gRPC client to call gRPC services.
+* Make gRPC calls to unary, server streaming, client streaming, and bi-directional streaming methods.
 
 ## Configure gRPC client
 
-gRPC clients are concrete client types that are [generated from `*.proto` files](xref:grpc/basic#generated-c-assets). The concrete gRPC client has methods that translate to the gRPC service in the `*.proto` file.
+gRPC clients are concrete client types that are [generated from **.proto* files](xref:grpc/basic#generated-c-assets). The concrete gRPC client has methods that translate to the gRPC service in the **.proto* file.
 
 A gRPC client is created from a channel. Start by using `ChannelBuilder` to create a channel, and then use the channel to create a gRPC client:
 
@@ -28,9 +28,9 @@ var channel = channelBuilder.Build();
 var client = new Greet.GreeterClient(channel);
 ```
 
-A channel represents a long-lived connection to a gRPC service. When a channel is created it is configured with options related to calling a service. For example, the `HttpClient` used to make calls, the maximum send and receive message size, and logging are options on `ChannelBuilder`. For a complete list of options, visit [client configuration options](xref:grpc/configuration#configure-client-options).
+A channel represents a long-lived connection to a gRPC service. When a channel is created it is configured with options related to calling a service. For example, the `HttpClient` used to make calls, the maximum send and receive message size, and logging are options on `ChannelBuilder`. For a complete list of options, see [client configuration options](xref:grpc/configuration#configure-client-options).
 
-Reusing a channel for gRPC calls offers performance benefits. Multiple gRPC clients can be created from a channel, including different types of clients. Concrete gRPC client types are light-weight objects and can be created when needed.
+Reusing a channel for gRPC calls offers performance benefits. Multiple gRPC clients can be created from a channel, including different types of clients. Concrete gRPC client types are lightweight objects and can be created when needed.
 
 ```csharp
 var channel = CreateChannel("https://localhost:5001");
@@ -41,13 +41,13 @@ var counterClient = new Count.CounterClient(channel);
 // Use clients to call gRPC services
 ```
 
-`ChannelBuilder` isn't the only option for creating a gRPC client. If you are calling gRPC services from an ASP.NET Core app, consider [gRPC client factory integration](xref:grpc/clientfactory). gRPC integration with HttpClientFactory offers a centralized alternative to creating gRPC clients.
+`ChannelBuilder` isn't the only option for creating a gRPC client. If you are calling gRPC services from an ASP.NET Core app, consider [gRPC client factory integration](xref:grpc/clientfactory). gRPC integration with `HttpClientFactory` offers a centralized alternative to creating gRPC clients.
 
-## Making gRPC calls
+## Make gRPC calls
 
-A gRPC call is initiated by calling a method on the client. The gRPC client will take care of message serialization and addressing the gRPC call to the correct service.
+A gRPC call is initiated by calling a method on the client. The gRPC client will handle message serialization and addressing the gRPC call to the correct service.
 
-gRPC has different types of methods, and how you use the client to make a gRPC call depends on the type of method you are calling. The gRPC method types are:
+gRPC has different types of methods. How you use the client to make a gRPC call depends on the type of method you are calling. The gRPC method types are:
 
 * Unary
 * Server streaming
@@ -66,10 +66,10 @@ Console.WriteLine("Greeting: " + response.Message);
 // Greeting: Hello World
 ```
 
-Each unary service method in the `*.proto` file will result in two .NET methods on the concrete gRPC client type for calling the method: an async method and a blocking method. For example, on `GreeterClient` there are two ways of calling `SayHello`:
+Each unary service method in the **.proto* file will result in two .NET methods on the concrete gRPC client type for calling the method: an asynchronous method and a blocking method. For example, on `GreeterClient` there are two ways of calling `SayHello`:
 
 * `GreeterClient.SayHelloAsync` - calls `Greeter.SayHello` service asynchronously. Can be awaited.
-* `GreeterClient.SayHello` - calls `Greeter.SayHello` service and blocks until complete. Don't use in async code.
+* `GreeterClient.SayHello` - calls `Greeter.SayHello` service and blocks until complete. Don't use in asynchronous code.
 
 ### Server streaming call
 
@@ -143,7 +143,7 @@ using (var call = client.Echo())
 }
 ```
 
-During a bi-directional streaming call the client and service can send messages to each other at any time. The best client logic for interacting with a bi-directional call varies depending on the service logic.
+During a bi-directional streaming call, the client and service can send messages to each other at any time. The best client logic for interacting with a bi-directional call varies depending upon the service logic.
 
 ## Additional resources
 
